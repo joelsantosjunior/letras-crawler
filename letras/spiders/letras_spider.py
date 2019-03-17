@@ -15,17 +15,15 @@ class GenreSpider(Spider):
         albums = response.css('div.cnt-discografia_cd')
         for album in albums:
             info = album.css("div.cnt-discografia_info")
-            print(info)
             album_item = {
                 "name": info.css("h4 > a::text").get(),
                 "link": info.css("h4 > a::attr(href)").get(),
                 "image": info.css("img::attr(src)").get(),
                 "info": info.css("span::text").get(),
-                "artist": response.meta["item"]
+                "artist": response.meta["item"],
                 "songs": [{
                     "link": _.css("a::attr(href)").get(),
-                    "title": _.css("a::attr(title)").get(),
-                    "lyrics": 
+                    "title": _.css("a::attr(title)").get()
                 } for _ in album.css("ol.cnt-list > li")]
             }
             yield AlbumItem(album_item)

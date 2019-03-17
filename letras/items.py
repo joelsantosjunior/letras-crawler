@@ -30,3 +30,4 @@ class AlbumItem(scrapy.Item):
     image = scrapy.Field()
     info = scrapy.Field()
     songs = scrapy.Field()
+    artist = scrapy.Field()
