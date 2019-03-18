@@ -4,7 +4,7 @@
 #
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: https://doc.scrapy.org/en/latest/topics/item-pipeline.html
-from letras.items import GenreItem, ArtistItem, AlbumItem
+from letras.items import GenreItem, ArtistItem, AlbumItem, SongItem
 from scrapy.exceptions import DropItem
 import json
 import pymongo
@@ -43,6 +43,10 @@ class MongoPipeline(object):
             instance = self.db.albums.find_one({"name": item["name"], "info": item["info"]}) 
             if not instance:
                 self.db['albums'].insert_one(dict(item))
+        if isinstance(item, SongItem):
+            instance = self.db.musicas.find_one({"titulo": item["titulo"], "album_id": item["album_id"]}) 
+            if not instance:
+                self.db['musicas'].insert_one(dict(item))
         return item
 
 
@@ -50,10 +54,12 @@ class CheckForDuplication(object):
     def __init__(self):
         self.artists = set()
         self.genres = set()
+        self.songs = set()
 
     def process_item(self, item, spider):
         if not isinstance(item, ArtistItem) or \
             not isinstance(item, AlbumItem) or \
+            not isinstance(item, SongItem) or \
             not isinstance(item, GenreItem):
             return item
 
@@ -68,3 +74,10 @@ class CheckForDuplication(object):
                 raise DropItem("Duplicate item found: %s" % item)
             else:
                 self.artists.add(item['artist_name'])
+
+        if isinstance(item, SongItem):
+            song_info = item['album_id'] + item["titulo"]
+            if song_info in self.songs:
+                raise DropItem("Duplicate item found: %s" % item)
+            else:
+                self.genres.add(song_info)

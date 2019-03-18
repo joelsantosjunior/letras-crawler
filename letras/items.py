@@ -31,3 +31,11 @@ class AlbumItem(scrapy.Item):
     info = scrapy.Field()
     songs = scrapy.Field()
     artist = scrapy.Field()
+
+class SongItem(scrapy.Item):
+    album_id = scrapy.Field()
+    titulo = scrapy.Field()
+    artista_nome = scrapy.Field()
+    letra = scrapy.Field()
+    compositor = scrapy.Field()
+    ano = scrapy.Field()

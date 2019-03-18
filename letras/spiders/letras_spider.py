@@ -2,7 +2,7 @@ from scrapy import FormRequest, Request, Spider
 from letras.items import GenreItem, ArtistItem, AlbumItem
 
 
-class GenreSpider(Spider):
+class LetrasSpider(Spider):
     name = "letrasspy"
     start_urls = [
         'https://www.letras.mus.br/',
