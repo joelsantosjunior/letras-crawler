@@ -39,3 +39,9 @@ class SongItem(scrapy.Item):
     letra = scrapy.Field()
     compositor = scrapy.Field()
     ano = scrapy.Field()
+
+class SambaEnredoItem(scrapy.Item):
+    titulo = scrapy.Field()
+    artista_nome = scrapy.Field()
+    letra = scrapy.Field()
+    compositor = scrapy.Field()
