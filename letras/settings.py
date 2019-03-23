@@ -68,7 +68,7 @@ ROBOTSTXT_OBEY = False
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-    'letras.pipelines.CheckForDuplication': 300,
+    # 'letras.pipelines.CheckForDuplication': 300,
     'letras.pipelines.MongoPipeline': 400
 }
 
