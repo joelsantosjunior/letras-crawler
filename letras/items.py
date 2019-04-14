@@ -16,20 +16,15 @@ class Artista(Item):
     link = Field()
     genero = Field()
 
-class Album(Item):
-    nome = Field()
-    link = Field()
-    info = Field()
-    musicas = Field()
-    artista = Field()
-
 class Musica(Item):
-    album_id = Field()
-    titulo = Field()
+    genero = Field()
     artista = Field()
+    album = Field()
+    ano = Field()
+    titulo = Field()
     letra = Field()
     compositor = Field()
-    ano = Field()
+    link = Field()
 
 class SambaEnredoItem(Item):
     titulo = Field()
