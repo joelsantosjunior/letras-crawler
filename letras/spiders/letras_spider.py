@@ -16,7 +16,7 @@ class LetrasSpider(Spider):
         all_genres = response.css('.js-tab-link')
 
         for genre in all_genres:
-            item = Genero()
+            item = {}
             item["link"] = genre.xpath('@href').get()
             item["nome"] = genre.xpath('@data-slug').get()
             if item["link"] != "/estilos//" and item["nome"] == self.genero:
@@ -35,21 +35,19 @@ class LetrasSpider(Spider):
         for artista in artists.css("a"):
             item = {
                 "genero": response.meta["item"],
-                "nome": artista.css("a::text").get(),
+                "artista": artista.css("a::text").get(),
                 "link": artista.xpath("@href").get()
             }
 
             if self.metodo == "discografia":
                 next_url = self.start_urls[0] + item["link"][1:] + "discografia"
                 req = Request(next_url, callback=self.discografia)
-                req.meta["item"] = {
-                    "genero": item["genero"],
-                    "artista": item["nome"],
-                }
+                req.meta["item"] = item
                 yield req
             else:
                 next_url = self.start_urls[0] + item["link"][1:]
                 req = Request(next_url, callback=self.lista_de_musicas)
+                req.meta["item"] = item
                 yield req
 
 
@@ -85,6 +83,7 @@ class LetrasSpider(Spider):
         for musica in musicas.css("ul.cnt-list > li"):
             link = musica.css("a::attr(href)").get()
             req = Request(self.start_urls[0] + link, callback=self.get_musica)
+            response.meta["item"]["link"] = link
             req.meta["item"] = response.meta["item"]
             yield req
 
