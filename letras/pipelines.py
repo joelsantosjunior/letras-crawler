@@ -4,7 +4,7 @@
 #
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: https://doc.scrapy.org/en/latest/topics/item-pipeline.html
-from letras.items import Genero, Artista, Musica, SambaEnredoItem
+from letras.items import Musica, SambaEnredoItem
 from scrapy.exceptions import DropItem
 import json
 import pymongo
@@ -31,14 +31,6 @@ class MongoPipeline(object):
         self.client.close()
 
     def process_item(self, item, spider):
-        if isinstance(item, Artista):
-            instance = self.db.artistas.find_one({"nome": item["nome"]})
-            if not instance:
-                self.db['artistas'].insert_one(dict(item))
-        if isinstance(item, Genero):
-            instance = self.db.generos.find_one({"nome": item["nome"]}) 
-            if not instance:
-                self.db['generos'].insert_one(dict(item))
         if isinstance(item, Musica):
             instance = self.db.musicas.find_one({"titulo": item["titulo"], "compositor": item["compositor"]}) 
             if not instance:

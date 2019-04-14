@@ -1,5 +1,5 @@
 from scrapy import FormRequest, Request, Spider
-from letras.items import Genero, Artista, Musica
+from letras.items import Musica
 import re
 
 

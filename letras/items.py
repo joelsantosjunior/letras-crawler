@@ -7,15 +7,6 @@
 
 from scrapy import Item, Field
 
-class Genero(Item):
-    nome = Field()
-    link = Field()
-
-class Artista(Item):
-    nome = Field()
-    link = Field()
-    genero = Field()
-
 class Musica(Item):
     genero = Field()
     artista = Field()
