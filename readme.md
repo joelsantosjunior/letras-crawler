@@ -1,6 +1,7 @@
 ## Web Scrapy 
 
-Scrapy utilizado para coletar letras de músicas juntamente com informações do cantor/compositor, bem como a discografia completa de artistas.
+Scrapy utilizado para coletar letras de músicas juntamente com informações do cantor/compositor.
+A busca pode ser feita de duas maneiras, coletando todas as músicas disponíveis por gênero musical, ou coletando por discografias.
 
 ### Como executar:
 
